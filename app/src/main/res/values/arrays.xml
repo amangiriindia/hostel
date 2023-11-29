@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="college_names">
+        <item>College 1</item>
+        <item>College 2</item>
+        <item>College 3</item>
+        <!-- Add more colleges as needed -->
+    </string-array>
+</resources>

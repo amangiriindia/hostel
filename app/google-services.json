@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "611361887536",
+    "project_id": "hostel-f17a2",
+    "storage_bucket": "hostel-f17a2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:611361887536:android:154dbf238c975b1dede4f5",
+        "android_client_info": {
+          "package_name": "com.amzsoft.hostel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAZn9bLdsRZ0G2k33HVtmLIjchuBir5-WE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
