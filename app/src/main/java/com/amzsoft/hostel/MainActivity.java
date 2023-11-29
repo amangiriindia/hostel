@@ -1,7 +1,9 @@
 package com.amzsoft.hostel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +24,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        String selectedCollege = getIntent().getStringExtra("selectedCollege");
+
+        if (selectedCollege != null) {
+            Toast.makeText(this, "Selected College: " + selectedCollege, Toast.LENGTH_SHORT).show();
+            replaceFragment(HomeFragment.newInstance(selectedCollege), "HomeFragment");
+        }
+
         BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -31,13 +40,13 @@ public class MainActivity extends AppCompatActivity {
 
                 // Check which item was selected and handle accordingly
                 if (itemId == R.id.home) {
-                    replaceFragment(new HomeFragment());
+                    replaceFragment(HomeFragment.newInstance(selectedCollege), "HomeFragment");
                     return true;
                 } else if (itemId == R.id.tomorrow) {
-                    replaceFragment(new TommrowFragment());
+                    replaceFragment(TommrowFragment.newInstance(selectedCollege), "TommrowFragment");
                     return true;
                 } else if (itemId == R.id.time) {
-                    replaceFragment(new TimeFragment());
+                    replaceFragment(TimeFragment.newInstance(selectedCollege), "TimeFragment");
                     return true;
                 }
 
@@ -49,10 +58,11 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.home);
     }
 
-    private void replaceFragment(Fragment fragment) {
+    private void replaceFragment(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
+        fragmentTransaction.replace(R.id.frame_layout, fragment, tag);
         fragmentTransaction.commit();
     }
 }
+

@@ -47,11 +47,14 @@ public class HomeFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
         firestore = FirebaseFirestore.getInstance();
 
+
         viewPager2 = rootView.findViewById(R.id.imageSliderViewPager);
         imageSliderAdapter = new ImageSliderAdapter();
         viewPager2.setAdapter(imageSliderAdapter);
 
         startAutoSlide();
+
+
 
 
         try {
@@ -64,42 +67,46 @@ public class HomeFragment extends Fragment {
             String currentday = getCurrentDay().toLowerCase();
             //   Toast.makeText(getActivity(), ""+currentday, Toast.LENGTH_SHORT).show();
             // Fetch data from Firestore
-            String collageName ="Ambalika Institute of Management and Technology";
-            firestore.collection("collage_name")
-                    .document(collageName)
-                    .collection(currentday)
-                    .get()
-                    .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            // Clear the existing list before adding new items
-                            dailyItemModelList.clear();
 
-                            // Loop through the query snapshot and add items to the list
-                            for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
-                                // Convert the document data to your model class
-                                DailyItemModel dailyItemModel = document.toObject(DailyItemModel.class);
+            Bundle args = getArguments();
+            if (args != null) {
+                String selectedCollege = args.getString("selectedCollege");
 
-                                // Add the model to the list
-                                dailyItemModelList.add(dailyItemModel);
+                firestore.collection("collage_name")
+                        .document(selectedCollege)
+                        .collection(currentday)
+                        .get()
+                        .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                // Clear the existing list before adding new items
+                                dailyItemModelList.clear();
+
+                                // Loop through the query snapshot and add items to the list
+                                for (QueryDocumentSnapshot document : queryDocumentSnapshots) {
+                                    // Convert the document data to your model class
+                                    DailyItemModel dailyItemModel = document.toObject(DailyItemModel.class);
+
+                                    // Add the model to the list
+                                    dailyItemModelList.add(dailyItemModel);
+                                }
+
+                                // Notify the adapter about the changes
+                                dailyItemAdapter.notifyDataSetChanged();
+
+                                // Display a toast or perform other actions as needed
+                                // Toast.makeText(getActivity(), "Data loaded successfully", Toast.LENGTH_SHORT).show();
                             }
-
-                            // Notify the adapter about the changes
-                            dailyItemAdapter.notifyDataSetChanged();
-
-                            // Display a toast or perform other actions as needed
-                            // Toast.makeText(getActivity(), "Data loaded successfully", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // Handle the failure case
-                            Log.e("FirestoreError", "Failed to load data", e);
-                            Toast.makeText(getActivity(), "Failed to load data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // Handle the failure case
+                                Log.e("FirestoreError", "Failed to load data", e);
+                                Toast.makeText(getActivity(), "Failed to load data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
 
 
         } catch (Exception e) {
@@ -108,6 +115,13 @@ public class HomeFragment extends Fragment {
 
 
         return rootView;
+    }
+    public static HomeFragment newInstance(String selectedCollege) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString("selectedCollege", selectedCollege);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     private void startAutoSlide() {
