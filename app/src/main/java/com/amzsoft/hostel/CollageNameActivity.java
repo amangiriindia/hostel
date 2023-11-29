@@ -3,6 +3,7 @@ package com.amzsoft.hostel;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -91,5 +92,15 @@ public class CollageNameActivity extends AppCompatActivity {
 
         // Perform actions with the selected college name (e.g., navigate to the next screen)
         Toast.makeText(this, "Selected College: " + selectedCollege, Toast.LENGTH_SHORT).show();
+
+        // Create an Intent to start the MainActivity
+        Intent intent = new Intent(this, MainActivity.class);
+
+        // You can pass the selected college name to MainActivity if needed
+        intent.putExtra("selectedCollege", selectedCollege);
+
+        // Start the MainActivity
+        startActivity(intent);
     }
+
 }

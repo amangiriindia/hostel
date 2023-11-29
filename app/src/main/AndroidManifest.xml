@@ -13,6 +13,9 @@
         android:theme="@style/Theme.Hostel"
         tools:targetApi="31">
         <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".CollageNameActivity"
             android:exported="false" />
         <activity
