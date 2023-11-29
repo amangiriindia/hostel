@@ -21,21 +21,32 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
 
     private List<String> imageUrlList; // List of image URLs
     private FirebaseFirestore firestore;
+    private String selectedCollege;  // Variable to store the selected college
 
-    public ImageSliderAdapter() {
+    public ImageSliderAdapter(String selectedCollege) {
         // Initialize Firebase Firestore reference
         firestore = FirebaseFirestore.getInstance();
 
         // Initialize imageUrlList as an empty ArrayList
         imageUrlList = new ArrayList<>();
 
-        // Fetch image URLs from Firebase Firestore
-        fetchImageUrls("Ambalika Institute of Management and Technology");
+        // Set the selected college
+        this.selectedCollege = selectedCollege;
+
+        // Fetch image URLs from Firebase Firestore based on the selected college
+        fetchImageUrls();
     }
 
-    private void fetchImageUrls(String collageName) {
+    // Method to update data based on the selected college
+    public void updateData(String selectedCollege) {
+        this.selectedCollege = selectedCollege;
+        fetchImageUrls();
+    }
+
+    private void fetchImageUrls() {
+        // Fetch image URLs from Firebase Firestore using the updated selected college
         firestore.collection("collage_name")
-                .document(collageName)
+                .document(selectedCollege)
                 .collection("slider")
                 .get()
                 .addOnCompleteListener(task -> {
@@ -61,6 +72,7 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
                     }
                 });
     }
+
 
     @NonNull
     @Override

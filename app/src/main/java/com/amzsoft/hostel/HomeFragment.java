@@ -48,10 +48,18 @@ public class HomeFragment extends Fragment {
         firestore = FirebaseFirestore.getInstance();
 
 
+        // Retrieve selectedCollege from arguments
+        Bundle args = getArguments();
+        String selectedCollege = (args != null) ? args.getString("selectedCollege") : "";
+
+        // Initialize viewPager2 and imageSliderAdapter with selectedCollege
         viewPager2 = rootView.findViewById(R.id.imageSliderViewPager);
-        imageSliderAdapter = new ImageSliderAdapter();
+        imageSliderAdapter = new ImageSliderAdapter(selectedCollege);
+
+        // Set the adapter to viewPager2
         viewPager2.setAdapter(imageSliderAdapter);
 
+        // Start auto slide
         startAutoSlide();
 
 
@@ -68,9 +76,6 @@ public class HomeFragment extends Fragment {
             //   Toast.makeText(getActivity(), ""+currentday, Toast.LENGTH_SHORT).show();
             // Fetch data from Firestore
 
-            Bundle args = getArguments();
-            if (args != null) {
-                String selectedCollege = args.getString("selectedCollege");
 
                 firestore.collection("collage_name")
                         .document(selectedCollege)
@@ -106,7 +111,7 @@ public class HomeFragment extends Fragment {
                                 Toast.makeText(getActivity(), "Failed to load data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
-            }
+
 
 
         } catch (Exception e) {
