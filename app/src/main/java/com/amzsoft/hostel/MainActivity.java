@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (selectedCollege != null) {
             Toast.makeText(this, "Selected College: " + selectedCollege, Toast.LENGTH_SHORT).show();
-            replaceFragment(HomeFragment.newInstance(selectedCollege), "HomeFragment");
+
         }
 
         BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                 // Check which item was selected and handle accordingly
                 if (itemId == R.id.home) {
                     replaceFragment(HomeFragment.newInstance(selectedCollege), "HomeFragment");
+
                     return true;
                 } else if (itemId == R.id.tomorrow) {
                     replaceFragment(TommrowFragment.newInstance(selectedCollege), "TommrowFragment");

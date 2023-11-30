@@ -48,6 +48,10 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewcontact;
     private List<ContactItemModel> contactList;
     private ContactItemAdapter contactAdapter;
+
+    private RecyclerView nearbyServicesRecyclerView;
+    private List<ServiceItemsModel> serviceItemList;
+    private ServiceItemAdapter serviceItemAdapter;
     private String selectedCollege = "";
 
     @Override
@@ -137,6 +141,15 @@ public class HomeFragment extends Fragment {
         recyclerViewcontact.setAdapter(contactAdapter);
         fetchDataFromFirestore();
 
+
+
+        nearbyServicesRecyclerView = rootView.findViewById(R.id.nearbyServicesRecyclerView);
+        nearbyServicesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        serviceItemList = new ArrayList<>();
+        serviceItemAdapter = new ServiceItemAdapter(serviceItemList, getContext());
+        nearbyServicesRecyclerView.setAdapter(serviceItemAdapter);
+        fetchNearbyServicesData();
+
         return rootView;
     }
 
@@ -161,6 +174,33 @@ public class HomeFragment extends Fragment {
                     contactAdapter.notifyDataSetChanged();
                 } else {
                     Toast.makeText(getActivity(), "Error fetching contacts", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void fetchNearbyServicesData() {
+
+
+        // Fetch data from Firestore for nearby services
+        CollectionReference servicesRef =
+                firestore.collection("collage_name")
+                        .document(selectedCollege)
+                        .collection("service");
+
+        servicesRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        ServiceItemsModel serviceItem = document.toObject(ServiceItemsModel.class);
+                        if (serviceItem != null) {
+                            serviceItemList.add(serviceItem);
+                        }
+                    }
+                    serviceItemAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), "Error fetching nearby services", Toast.LENGTH_SHORT).show();
                 }
             }
         });
