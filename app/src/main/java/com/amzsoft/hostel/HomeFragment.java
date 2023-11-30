@@ -14,8 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -41,6 +45,11 @@ public class HomeFragment extends Fragment {
     DailyItemsAdapter dailyItemAdapter;
     private FirebaseFirestore firestore;
 
+    private RecyclerView recyclerViewcontact;
+    private List<ContactItemModel> contactList;
+    private ContactItemAdapter contactAdapter;
+    private String selectedCollege = "";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,7 +59,7 @@ public class HomeFragment extends Fragment {
 
         // Retrieve selectedCollege from arguments
         Bundle args = getArguments();
-        String selectedCollege = (args != null) ? args.getString("selectedCollege") : "";
+         selectedCollege = (args != null) ? args.getString("selectedCollege") : "";
 
         // Initialize viewPager2 and imageSliderAdapter with selectedCollege
         viewPager2 = rootView.findViewById(R.id.imageSliderViewPager);
@@ -119,7 +128,42 @@ public class HomeFragment extends Fragment {
         }
 
 
+         //   contact data recyclarView
+
+        recyclerViewcontact= rootView.findViewById(R.id.contactrecyclerView);
+        recyclerViewcontact.setLayoutManager(new LinearLayoutManager(getActivity()));
+        contactList = new ArrayList<>();
+        contactAdapter = new ContactItemAdapter(contactList, getContext());
+        recyclerViewcontact.setAdapter(contactAdapter);
+        fetchDataFromFirestore();
+
         return rootView;
+    }
+
+    private void fetchDataFromFirestore() {
+
+        CollectionReference contactsRef =
+                firestore.collection("collage_name")
+                        .document(selectedCollege)
+                        .collection("contact");
+
+
+        contactsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        ContactItemModel contact = document.toObject(ContactItemModel.class);
+                        if (contact != null) {
+                            contactList.add(contact);
+                        }
+                    }
+                    contactAdapter.notifyDataSetChanged();
+                } else {
+                    Toast.makeText(getActivity(), "Error fetching contacts", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     public static HomeFragment newInstance(String selectedCollege) {
         HomeFragment fragment = new HomeFragment();
