@@ -1,5 +1,6 @@
 package com.amzsoft.hostel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -26,9 +26,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-//        setSupportActionBar(toolbar);
+        String selectedCollege = getIntent().getStringExtra("selectedCollege");
 
         // Your other setup code
 
@@ -36,12 +34,17 @@ public class MainActivity extends AppCompatActivity {
         customerSupportIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "click on feedback", Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
+                intent.putExtra("selectedCollege", selectedCollege);
+                startActivity(intent);
                 // Handle the click on the customer support icon
                 // For example, open a customer support activity or dialog
             }
         });
 
-        String selectedCollege = getIntent().getStringExtra("selectedCollege");
+
 
         if (selectedCollege != null) {
             Toast.makeText(this, "Selected College: " + selectedCollege, Toast.LENGTH_SHORT).show();
@@ -81,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment, tag);
         fragmentTransaction.commit();
+    }
+    public void onCustomerSupportIconClick(View view) {
+        // Handle the click on the customer support icon
+        // For example, open a customer support activity or dialog
+        Toast.makeText(this, "Customer support icon clicked!", Toast.LENGTH_SHORT).show();
     }
 }
 
