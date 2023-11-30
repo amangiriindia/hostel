@@ -1,8 +1,5 @@
 package com.amzsoft.hostel;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -101,6 +101,15 @@ public class CollageNameActivity extends AppCompatActivity {
 
         // Start the MainActivity
         startActivity(intent);
+    }
+
+    public void onContactHereClick(View view) {
+        // Handle the click event here
+        Toast.makeText(this, "Contact here clicked!", Toast.LENGTH_SHORT).show();
+        // Add your desired action, such as opening a contact form or performing any other operation.
+        Intent intent = new Intent(CollageNameActivity.this, CollageNotListedActivity.class);
+        startActivity(intent);
+        //
     }
 
 }

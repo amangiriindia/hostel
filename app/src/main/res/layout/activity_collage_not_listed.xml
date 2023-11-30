@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/clg_list_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:subtitleTextColor="@android:color/white"
+            app:title="Hostel Feedback"
+            app:titleTextColor="@android:color/white"
+            app:layout_scrollFlags="scroll|enterAlways">
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- College Name -->
+    <EditText
+        android:id="@+id/editTextCollegeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:hint="College Name"
+        android:inputType="text"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- College Location -->
+    <EditText
+        android:id="@+id/editTextCollegeLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Location"
+        android:inputType="text"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/editTextCollegeName"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Name -->
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Name"
+        android:inputType="text"
+        android:background="@drawable/edit_text_bg"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:padding="12dp"
+        android:layout_below="@id/editTextCollegeLocation"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Email -->
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Email"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/editTextName"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Phone Number -->
+    <EditText
+        android:id="@+id/editTextPhoneNumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Your Phone Number"
+        android:inputType="phone"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/editTextEmail"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Course -->
+    <EditText
+        android:id="@+id/editTextCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Course"
+        android:inputType="text"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/editTextPhoneNumber"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Year -->
+    <EditText
+        android:id="@+id/editTextYear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Year"
+        android:inputType="number"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/editTextCourse"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:background="@drawable/edit_text_bg"
+        android:padding="12dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_below="@id/editTextYear"
+        android:layout_marginTop="24dp" />
+
+</RelativeLayout>
