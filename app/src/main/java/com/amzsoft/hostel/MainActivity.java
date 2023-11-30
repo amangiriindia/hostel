@@ -1,12 +1,14 @@
 package com.amzsoft.hostel;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -23,6 +25,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+
+//        setSupportActionBar(toolbar);
+
+        // Your other setup code
+
+        ImageView customerSupportIcon = findViewById(R.id.customerSupportIcon);
+        customerSupportIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Handle the click on the customer support icon
+                // For example, open a customer support activity or dialog
+            }
+        });
 
         String selectedCollege = getIntent().getStringExtra("selectedCollege");
 
