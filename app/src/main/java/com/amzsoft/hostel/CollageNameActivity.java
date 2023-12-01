@@ -1,6 +1,7 @@
 package com.amzsoft.hostel;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -152,14 +153,14 @@ public class CollageNameActivity extends AppCompatActivity {
                 if (pin != null && pin.equals(enteredPin)) {
                     // PIN is correct, navigate to MainActivity
 
-                    // Create an Intent to start the MainActivity
-                    Intent intent = new Intent(CollageNameActivity.this, MainActivity.class);
+                    // PIN is correct, save the flag indicating data has been passed
+                    saveDataPassedFlag();
 
-                    // You can pass the selected college name to MainActivity if needed
-                    intent.putExtra("selectedCollege", selectedCollege);
+                    // Save selectedCollege to SharedPreferences
+                    saveSelectedCollege(selectedCollege);
 
-                    // Start the MainActivity
-                    startActivity(intent);
+                    // Move to MainActivity
+                    moveToMainActivity(selectedCollege);
                 } else {
                     // Incorrect PIN or PIN not available, show a toast message
                     Toast.makeText(CollageNameActivity.this, "Incorrect PIN. Please try again.", Toast.LENGTH_SHORT).show();
@@ -167,7 +168,36 @@ public class CollageNameActivity extends AppCompatActivity {
             }
         });
     }
+    static final String PREFS_NAME = "MyPrefsFile";
+    static final String DATA_PASSED_FLAG = "dataPassedFlag";
+    static final String SELECTED_COLLEGE_KEY = "selectedCollege";
 
+    private void saveDataPassedFlag() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putBoolean(DATA_PASSED_FLAG, true);
+        editor.apply();
+    }
+
+    private boolean isDataPassed() {
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        return settings.getBoolean(DATA_PASSED_FLAG, false);
+    }
+
+    private void moveToMainActivity(String selectedCollege) {
+        // Move to MainActivity
+        Intent intent = new Intent(CollageNameActivity.this, MainActivity.class);
+        intent.putExtra("selectedCollege", selectedCollege);
+        startActivity(intent);
+    }
+
+    private void saveSelectedCollege(String selectedCollege) {
+        // Save selectedCollege to SharedPreferences
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(SELECTED_COLLEGE_KEY, selectedCollege);
+        editor.apply();
+    }
 
     public void onContactHereClick(View view) {
         // Handle the click event here
