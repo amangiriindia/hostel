@@ -23,10 +23,11 @@
             android:text="Today's Menu"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="20dp"/>
+            android:textAlignment="textStart"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -40,10 +41,11 @@
             android:text="Hostel Emergency Number"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="20dp"/>
+            android:textAlignment="textStart"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/contactrecyclerView"
@@ -57,10 +59,11 @@
             android:text="Nearby Services"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginTop="20dp"/>
+            android:textAlignment="textStart"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/nearbyServicesRecyclerView"
