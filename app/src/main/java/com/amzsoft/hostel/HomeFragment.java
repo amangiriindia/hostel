@@ -153,6 +153,9 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
+
+
+
     private void fetchDataFromFirestore() {
 
         CollectionReference contactsRef =

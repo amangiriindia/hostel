@@ -2,4 +2,9 @@
     <string name="app_name">Hostel</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_feedback_type">Select Feedback Type</string>
+    <string name="select_feedback_type_error">Select Feedback Type!</string>
+    <string name="select_college">Please select a college</string>
+    <string name="select_college_error">Please select a college before proceeding</string>
+
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="college_names">
+        <item>Please select a college</item>
         <item>College 1</item>
         <item>College 2</item>
         <item>College 3</item>
@@ -8,6 +9,7 @@
     </string-array>
 
     <string-array name="feedback">
+        <item>Select Feedback Type</item>
         <item>Mess FeedBack</item>
         <item>App FeedBack</item>
         <!-- Add more colleges as needed -->
