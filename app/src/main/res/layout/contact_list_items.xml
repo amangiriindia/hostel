@@ -50,7 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                android:text="Phone: +123456789"
+                android:text="+123456789"
                 android:textColor="@color/white"
                 android:paddingStart="5dp"
                 android:paddingEnd="5dp"
@@ -61,6 +61,7 @@
             android:layout_height="match_parent"
             android:gravity="center|end">
             <ImageView
+                android:id="@+id/phone_icon"
                 android:layout_marginRight="30dp"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

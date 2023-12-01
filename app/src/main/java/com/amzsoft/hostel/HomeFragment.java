@@ -252,4 +252,7 @@ public class HomeFragment extends Fragment {
             timer = null;
         }
     }
+
+
+
 }
