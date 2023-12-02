@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="200dp"
+    android:orientation="vertical"
+    android:background="@color/black">
 
-    <ImageView
+   <TextView
+       android:id="@+id/admin_nav_collage_name"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="Ambalika Institue of Managment And Technology"
+       android:textSize="20sp"
+       android:textColor="@color/white"
+       android:gravity="center"
+       android:layout_marginTop="60dp"
+       android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/admin_nav_collage_password"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher"/>
+        android:layout_height="wrap_content"
+        android:text="Password: 1234"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:textStyle="bold"/>
 
 </LinearLayout>

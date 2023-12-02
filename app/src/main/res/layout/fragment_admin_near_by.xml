@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.AdminMenuFragment">
+    tools:context=".Admin.AdminNearByFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
@@ -14,6 +14,6 @@
         android:textStyle="bold"
         android:textSize="25sp"
         android:textColor="@color/black"
-        android:text="Admin Menu Fragment" />
+        android:text="Near By Service Fragment" />
 
 </FrameLayout>

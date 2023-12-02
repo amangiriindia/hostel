@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/admin_home"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"/>
+
       <item
-          android:id="@+id/items1"
-          android:title="Items1"
-          android:icon="@mipmap/ic_launcher"/>
+          android:id="@+id/admin_menu"
+          android:title="Food Menu"
+          android:icon="@drawable/baseline_restaurant_menu_24"/>
 
     <item
-        android:id="@+id/items2"
-        android:title="Items2"
-        android:icon="@mipmap/ic_launcher"/>
+        android:id="@+id/admin_nearby_service"
+        android:title="NearBy Service"
+        android:icon="@drawable/near_service"/>
+    <item
+        android:id="@+id/admin_Slider"
+        android:title="Slider Notification"
+        android:icon="@drawable/slider"/>
+    <item
+        android:id="@+id/admin_contact"
+        android:title="Emergency Number"
+        android:icon="@drawable/contact"/>
+
+    <item
+        android:id="@+id/admin_feedback"
+        android:title="Mess Feedback"
+        android:icon="@drawable/baseline_feedback_24"/>
+    <item
+        android:id="@+id/admin_timing"
+        android:title="Mess Timing"
+        android:icon="@drawable/time"/>
+    <item
+        android:id="@+id/admin_support"
+        android:title="Custmer Support"
+        android:icon="@drawable/support"/>
+    <item
+        android:id="@+id/admin_logout"
+        android:title="Logout"
+        android:icon="@drawable/baseline_logout_24"/>
+
+
 </menu>

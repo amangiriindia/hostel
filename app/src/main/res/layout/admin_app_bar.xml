@@ -11,10 +11,26 @@
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/admin_toolbar"/>
+            android:id="@+id/admin_toolbar">
 
+            <TextView
+                android:id="@+id/toolbar_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:text="Hostel Admin"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"/>
+
+            <!-- Custom layout for the Toolbar -->
+
+
+        </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
+
 
     <include layout="@layout/admin_content_main"/>
 
