@@ -1,19 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.AdminHomeFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="25sp"
-        android:textColor="@color/black"
-        android:text="Admin Home Fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
 
-</FrameLayout>
+        <!-- Add the ViewPager2 for image slider -->
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/admin_imageSliderViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginBottom="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Today's Menu"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/admin_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_items"/>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nearby Services"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/admin_nearbyServicesRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/near_service_item"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Hostel Emergency Number"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textAlignment="textStart"
+            android:textSize="25sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/admin_contactrecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/contact_list_items"/>
+
+
+    </LinearLayout>
+</ScrollView>

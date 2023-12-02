@@ -73,7 +73,8 @@ public class AdminMainActivity extends AppCompatActivity {
 
                 if (id == R.id.admin_menu) {
                     // Handle admin_menu click
-                    loadFragment(new AdminContactFragment());
+
+                    loadFragment(new AdminMenuFragment());
                 } else if (id == R.id.admin_nearby_service) {
                     // Handle admin_nearby_service click
                     loadFragment(new AdminNearByFragment());

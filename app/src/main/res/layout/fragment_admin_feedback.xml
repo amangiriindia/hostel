@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Admin.AdminFeedbackFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="25sp"
+        android:layout_height="wrap_content"
+        android:text="Mess Feedback"
         android:textColor="@color/black"
-        android:text="Admin Feedback Fragment" />
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textSize="25sp"
+        android:layout_gravity=""
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="10dp"/>
 
-</FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+
+        android:id="@+id/admin_feedback_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/admin_feedback_items"/>
+
+</LinearLayout>

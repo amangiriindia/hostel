@@ -1,18 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Admin.CostmerSupportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:text="Costmer Support"
-        android:textStyle="bold"
+        android:textSize="22sp"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"/>
 
-</FrameLayout>
+    <!-- Heading Input Box -->
+    <EditText
+        android:id="@+id/headingEditText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Heading"
+        android:textAlignment="textStart"
+        android:inputType="text"
+        android:background="@drawable/border"
+        android:padding="8dp" />
+
+    <!-- Description Input Box -->
+    <EditText
+        android:id="@+id/descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="Description"
+        android:inputType="textMultiLine"
+        android:background="@drawable/border"
+        android:padding="8dp" />
+
+    <!-- Submit Button -->
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="Submit"
+        android:textColor="@color/white"
+        android:padding="12dp" />
+
+</LinearLayout>
+

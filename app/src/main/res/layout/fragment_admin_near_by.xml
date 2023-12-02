@@ -1,19 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.AdminNearByFragment">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textSize="25sp"
+        android:layout_height="wrap_content"
+        android:text="Near By Service"
         android:textColor="@color/black"
-        android:text="Near By Service Fragment" />
+        android:textSize="22sp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"
+        android:textStyle="bold"/>
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/admin_nearby_headingEditText"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/border"
+        android:layout_height="60dp"
+        android:hint="Heading"
+        android:inputType="text"/>
+
+    <EditText
+        android:id="@+id/admin_nearby_descriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:hint="Description"
+        android:inputType="textMultiLine"/>
+
+    <EditText
+        android:id="@+id/admin_nearby_distanceEditText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="Distance"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/border"
+        android:inputType="numberDecimal"/>
+
+    <EditText
+        android:id="@+id/admin_nearby_contactNumberEditText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:hint="Contact Number"
+        android:layout_marginBottom="16dp"
+        android:inputType="phone"/>
+
+    <EditText
+        android:id="@+id/admin_nearby_otherOptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/border"
+        android:hint="Other Option"
+        android:layout_marginBottom="16dp"
+        android:inputType="text"/>
+
+    <Button
+        android:id="@+id/admin_nearby_submitBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"/>
+
+</LinearLayout>

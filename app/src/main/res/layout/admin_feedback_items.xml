@@ -1,0 +1,42 @@
+<androidx.cardview.widget.CardView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_margin="8dp"
+android:elevation="4dp"
+android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border"
+        android:layout_margin="5dp"
+
+        android:padding="15dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/admin_feedback_problem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Problem:"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:padding="10dp"
+            android:textSize="22sp"
+            android:textColor="@color/black" />
+
+        <TextView
+            android:id="@+id/admin_feedback_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5sp"
+            android:textAlignment="textStart"
+            android:text="Describe the problem you encountered."
+            android:textColor="@color/black" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

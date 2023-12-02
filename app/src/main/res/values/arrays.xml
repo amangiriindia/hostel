@@ -14,4 +14,30 @@
         <item>App FeedBack</item>
         <!-- Add more colleges as needed -->
     </string-array>
+
+    <string-array name="day_names">
+        <item>Please select here</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string-array name="food_items">
+        <item>Please select here</item>
+        <item>Breakfast</item>
+        <item>Lunch</item>
+        <item>Snacks</item>
+        <item>Dinner</item>
+    </string-array>
+    <string-array name="week_day_names">
+        <item>Please select here</item>
+        <item>Weekday</item>
+        <item>Weekend</item>
+    </string-array>
+
+
 </resources>

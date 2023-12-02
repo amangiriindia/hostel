@@ -1,19 +1,64 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Admin.AdminContactFragment">
+    android:orientation="vertical"
+    android:padding="16dp">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Emergency Number Form"
         android:textStyle="bold"
-        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
         android:textColor="@color/black"
-        android:text="Admin Contact Fragment" />
+        android:textSize="22sp"/>
 
-</FrameLayout>
+    <!-- Name TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/admin_nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:background="@drawable/border"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- PhoneNumber TextInputLayout -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phoneInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/admin_phoneEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Phone Number"
+            android:background="@drawable/border"
+            android:inputType="phone"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Button to Upload Photo -->
+    <Button
+        android:id="@+id/admin_contact_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Submit"
+
+        android:onClick="onUploadPhotoClick"/>
+
+    <!-- Placeholder for Photo -->
+
+
+</LinearLayout>
