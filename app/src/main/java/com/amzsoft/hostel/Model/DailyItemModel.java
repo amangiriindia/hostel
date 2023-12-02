@@ -1,4 +1,4 @@
-package com.amzsoft.hostel;
+package com.amzsoft.hostel.Model;
 
 public class DailyItemModel {
     String heading;

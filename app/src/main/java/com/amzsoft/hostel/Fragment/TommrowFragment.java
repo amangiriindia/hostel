@@ -1,4 +1,4 @@
-package com.amzsoft.hostel;
+package com.amzsoft.hostel.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amzsoft.hostel.Adapter.DailyItemsAdapter;
+import com.amzsoft.hostel.Model.DailyItemModel;
+import com.amzsoft.hostel.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;

@@ -1,4 +1,4 @@
-package com.amzsoft.hostel;
+package com.amzsoft.hostel.Activity;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amzsoft.hostel.R;
 import com.google.android.material.appbar.MaterialToolbar;
 
 public class FeedbackActivity extends AppCompatActivity {

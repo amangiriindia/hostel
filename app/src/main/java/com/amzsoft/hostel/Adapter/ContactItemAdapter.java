@@ -1,4 +1,4 @@
-package com.amzsoft.hostel;
+package com.amzsoft.hostel.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.amzsoft.hostel.Model.ContactItemModel;
+import com.amzsoft.hostel.R;
 import com.bumptech.glide.Glide;
 
 import java.util.List;

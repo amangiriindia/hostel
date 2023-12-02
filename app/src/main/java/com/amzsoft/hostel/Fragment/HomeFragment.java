@@ -1,4 +1,4 @@
-package com.amzsoft.hostel;
+package com.amzsoft.hostel.Fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.amzsoft.hostel.Adapter.ContactItemAdapter;
+import com.amzsoft.hostel.Model.ContactItemModel;
+import com.amzsoft.hostel.Model.DailyItemModel;
+import com.amzsoft.hostel.Adapter.DailyItemsAdapter;
+import com.amzsoft.hostel.Adapter.ImageSliderAdapter;
+import com.amzsoft.hostel.R;
+import com.amzsoft.hostel.Adapter.ServiceItemAdapter;
+import com.amzsoft.hostel.Model.ServiceItemsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

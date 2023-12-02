@@ -1,8 +1,8 @@
-package com.amzsoft.hostel;
+package com.amzsoft.hostel.Activity;
 
-import static com.amzsoft.hostel.CollageNameActivity.DATA_PASSED_FLAG;
-import static com.amzsoft.hostel.CollageNameActivity.PREFS_NAME;
-import static com.amzsoft.hostel.CollageNameActivity.SELECTED_COLLEGE_KEY;
+import static com.amzsoft.hostel.Activity.CollageNameActivity.DATA_PASSED_FLAG;
+import static com.amzsoft.hostel.Activity.CollageNameActivity.PREFS_NAME;
+import static com.amzsoft.hostel.Activity.CollageNameActivity.SELECTED_COLLEGE_KEY;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.amzsoft.hostel.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -27,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
             // Check if selectedCollege is not null
             if (selectedCollege != null) {
                 // Display a toast message with the selected college value
-                Intent intent = new Intent(SplashActivity.this,MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, CollageNameActivity.MainActivity.class);
                 intent.putExtra("selectedCollege", selectedCollege);
 
                 Handler handler = new Handler();
