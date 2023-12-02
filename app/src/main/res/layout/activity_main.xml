@@ -19,6 +19,7 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:subtitleTextColor="@android:color/white"
             app:title="Hostel"
+            android:textAlignment="center"
             app:titleTextColor="@android:color/white">
 
             <!-- Your customer support icon -->

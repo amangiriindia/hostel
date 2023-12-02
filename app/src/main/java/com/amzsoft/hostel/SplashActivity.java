@@ -40,7 +40,7 @@ public class SplashActivity extends AppCompatActivity {
                         // Close the splash activity
                         finish();
                     }
-                }, 5000); // 5000 milliseconds = 5 seconds
+                }, 2000); // 5000 milliseconds = 5 seconds
             }else{
 
             }
@@ -58,7 +58,7 @@ public class SplashActivity extends AppCompatActivity {
                     // Close the splash activity
                     finish();
                 }
-            }, 5000); // 5000 milliseconds = 5 seconds
+            }, 2000); // 5000 milliseconds = 5 seconds
         }
 
 
