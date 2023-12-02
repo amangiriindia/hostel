@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  
+      <item
+          android:id="@+id/items1"
+          android:title="Items1"
+          android:icon="@mipmap/ic_launcher"/>
+
+    <item
+        android:id="@+id/items2"
+        android:title="Items2"
+        android:icon="@mipmap/ic_launcher"/>
 </menu>

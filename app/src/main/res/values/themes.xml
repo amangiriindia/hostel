@@ -26,12 +26,7 @@
         <item name="color">@color/white</item>
     </style>
 
-    <style name="Theme.Hostel.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
-    <style name="Theme.Hostel.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="Theme.Hostel.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>
