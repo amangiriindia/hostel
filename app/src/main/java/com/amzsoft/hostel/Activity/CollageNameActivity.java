@@ -18,10 +18,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.amzsoft.hostel.Admin.AdminLoginActivity;
 import com.amzsoft.hostel.Fragment.HomeFragment;
-import com.amzsoft.hostel.R;
 import com.amzsoft.hostel.Fragment.TimeFragment;
 import com.amzsoft.hostel.Fragment.TommrowFragment;
+import com.amzsoft.hostel.R;
 import com.amzsoft.hostel.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -297,4 +298,15 @@ public class CollageNameActivity extends AppCompatActivity {
             Toast.makeText(this, "Customer support icon clicked!", Toast.LENGTH_SHORT).show();
         }
     }
+    public void onAdminloginIconClick(View view) {
+        // Handle the click on admin login icon
+        showAdminLogin();
+    }
+
+    private void showAdminLogin() {
+        // Redirect to AdminLoginActivity
+        Intent intent = new Intent(this, AdminLoginActivity.class);
+        startActivity(intent);
+    }
+
 }
