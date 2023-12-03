@@ -16,14 +16,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.amzsoft.hostel.R;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class CollageNotListedActivity extends AppCompatActivity {
     private EditText editTextCollegeName, editTextLocation, editTextName,
             editTextEmail, editTextPhoneNumber,editTextCourse,editTextYear;
     private Button submitBtn;
 
-    private DatabaseReference databaseReference;
+    CollectionReference collageNotListedCollection;
+    FirebaseFirestore db;
 
 
     @Override
@@ -31,7 +36,11 @@ public class CollageNotListedActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_collage_not_listed);
 
+// Assuming you have a reference to your FirebaseFirestore instance
+        db = FirebaseFirestore.getInstance();
 
+// Reference to the "collage_not_listed" collection
+         collageNotListedCollection = db.collection("collage_not_listed");
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"})
         MaterialToolbar toolbar = findViewById(R.id.clg_list_toolbar);
@@ -112,8 +121,29 @@ public class CollageNotListedActivity extends AppCompatActivity {
             return;
         }
 
+        // Create a map to represent the data
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("collegeName", collegeName);
+        userData.put("collegeLocation", location);
+        userData.put("name", name);
+        userData.put("email", email);
+        userData.put("phoneNumber", phoneNumber);
+        userData.put("course", course);
+        userData.put("year", yearText);
 
-        Toast.makeText(this, "Your Data submitted successfully our Team will be contact with in 2 working day!", Toast.LENGTH_SHORT).show();
+        db.collection("collage_not_listed")
+                .add(userData)
+                .addOnSuccessListener(documentReference -> {
+                    // Data added successfully
+                    Toast.makeText(CollageNotListedActivity.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Your Data submitted successfully our Team will be contact with in 2 working day!", Toast.LENGTH_LONG).show();
+                    // Add any other actions you need after successful submission
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failures
+                    Toast.makeText(CollageNotListedActivity.this, "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
 
         // Repeat the validation for other fields...
 
