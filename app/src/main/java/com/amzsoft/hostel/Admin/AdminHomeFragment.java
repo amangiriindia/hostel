@@ -53,9 +53,7 @@ public class AdminHomeFragment extends Fragment {
     private Timer timer;
     private final long DELAY_MS = 2000;
     private final long PERIOD_MS = 3000;
-    private RecyclerView nearbyServicesRecyclerView;
-    private List<ServiceItemsModel> serviceItemList;
-    private ServiceItemAdapter serviceItemAdapter;
+
     private String selectedCollege = "Ambalika Institute of Management and Technology";
 
     @Override
@@ -142,16 +140,6 @@ public class AdminHomeFragment extends Fragment {
 
 
 
-        nearbyServicesRecyclerView = rootView.findViewById(R.id.admin_nearbyServicesRecyclerView);
-        nearbyServicesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        serviceItemList = new ArrayList<>();
-        serviceItemAdapter = new ServiceItemAdapter(serviceItemList, getContext());
-        nearbyServicesRecyclerView.setAdapter(serviceItemAdapter);
-        fetchNearbyServicesData();
-
-
-
-
 
 
 
@@ -172,32 +160,6 @@ public class AdminHomeFragment extends Fragment {
 
 
 
-    private void fetchNearbyServicesData() {
-
-
-        // Fetch data from Firestore for nearby services
-        CollectionReference servicesRef =
-                firestore.collection("collage_name")
-                        .document(selectedCollege)
-                        .collection("service");
-
-        servicesRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        ServiceItemsModel serviceItem = document.toObject(ServiceItemsModel.class);
-                        if (serviceItem != null) {
-                            serviceItemList.add(serviceItem);
-                        }
-                    }
-                    serviceItemAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(), "Error fetching nearby services", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
 
 
     private void startAutoSlide() {

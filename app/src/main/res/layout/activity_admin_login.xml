@@ -28,7 +28,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <Spinner
-        android:id="@+id/collegeSpinner"
+        android:id="@+id/admin_collegeSpinner"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="30dp"
@@ -42,7 +42,7 @@
 
     <!-- Add EditText for Admin UserId -->
     <EditText
-        android:id="@+id/adminUserIdEditText"
+        android:id="@+id/admin_id"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="16dp"
@@ -51,21 +51,21 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:background="@drawable/border"
-        app:layout_constraintTop_toBottomOf="@id/collegeSpinner"
+        app:layout_constraintTop_toBottomOf="@id/admin_collegeSpinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/adminpinInputLayout"
+        android:id="@+id/admin_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="86dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/collegeSpinner">
+        app:layout_constraintTop_toBottomOf="@id/admin_collegeSpinner">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/adminpinEditText"
+            android:id="@+id/admin_pinEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adminpinInputLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/admin_password" />
 
     <TextView
         android:id="@+id/textView3"

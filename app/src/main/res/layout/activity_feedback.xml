@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="100dp"
-        android:background="@drawable/edit_text_bg"
+        android:background="@drawable/border"
         android:padding="8dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
@@ -52,7 +52,7 @@
         android:hint="Heading"
         android:textAlignment="textStart"
         android:inputType="text"
-        android:background="@drawable/edit_text_bg"
+        android:background="@drawable/border"
         android:padding="8dp" />
 
     <!-- Description Input Box -->
@@ -66,7 +66,7 @@
         android:layout_marginEnd="10dp"
         android:hint="Description"
         android:inputType="textMultiLine"
-        android:background="@drawable/edit_text_bg"
+        android:background="@drawable/border"
         android:padding="8dp" />
 
     <!-- Submit Button -->
