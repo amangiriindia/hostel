@@ -37,41 +37,8 @@
 
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Nearby Services"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
-            android:textSize="25sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/admin_nearbyServicesRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/near_service_item"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Hostel Emergency Number"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textAlignment="textStart"
-            android:textSize="25sp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginLeft="10dp"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/admin_contactrecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:listitem="@layout/contact_list_items"/>
 
 
     </LinearLayout>

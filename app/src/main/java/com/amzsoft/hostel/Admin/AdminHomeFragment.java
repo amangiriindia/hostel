@@ -14,11 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.amzsoft.hostel.Adapter.ContactItemAdapter;
 import com.amzsoft.hostel.Adapter.DailyItemsAdapter;
 import com.amzsoft.hostel.Adapter.ImageSliderAdapter;
 import com.amzsoft.hostel.Adapter.ServiceItemAdapter;
-import com.amzsoft.hostel.Model.ContactItemModel;
 import com.amzsoft.hostel.Model.DailyItemModel;
 import com.amzsoft.hostel.Model.ServiceItemsModel;
 import com.amzsoft.hostel.R;
@@ -51,9 +49,7 @@ public class AdminHomeFragment extends Fragment {
     DailyItemsAdapter dailyItemAdapter;
     private FirebaseFirestore firestore;
 
-    private RecyclerView recyclerViewcontact;
-    private List<ContactItemModel> contactList;
-    private ContactItemAdapter contactAdapter;
+
     private Timer timer;
     private final long DELAY_MS = 2000;
     private final long PERIOD_MS = 3000;
@@ -141,14 +137,8 @@ public class AdminHomeFragment extends Fragment {
         }
 
 
-        //   contact data recyclarView
 
-        recyclerViewcontact= rootView.findViewById(R.id.admin_contactrecyclerView);
-        recyclerViewcontact.setLayoutManager(new LinearLayoutManager(getActivity()));
-        contactList = new ArrayList<>();
-        contactAdapter = new ContactItemAdapter(contactList, getContext());
-        recyclerViewcontact.setAdapter(contactAdapter);
-        fetchDataFromFirestore();
+
 
 
 
@@ -159,33 +149,28 @@ public class AdminHomeFragment extends Fragment {
         nearbyServicesRecyclerView.setAdapter(serviceItemAdapter);
         fetchNearbyServicesData();
 
+
+
+
+
+
+
+
+
+
         return rootView;
     }
-    private void fetchDataFromFirestore() {
-
-        CollectionReference contactsRef =
-                firestore.collection("collage_name")
-                        .document(selectedCollege)
-                        .collection("contact");
 
 
-        contactsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (DocumentSnapshot document : task.getResult()) {
-                        ContactItemModel contact = document.toObject(ContactItemModel.class);
-                        if (contact != null) {
-                            contactList.add(contact);
-                        }
-                    }
-                    contactAdapter.notifyDataSetChanged();
-                } else {
-                    Toast.makeText(getActivity(), "Error fetching contacts", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-    }
+
+
+
+
+
+
+
+
+
 
     private void fetchNearbyServicesData() {
 
