@@ -5,28 +5,19 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.amzsoft.hostel.Admin.AdminLoginActivity;
-import com.amzsoft.hostel.Fragment.HomeFragment;
-import com.amzsoft.hostel.Fragment.TimeFragment;
-import com.amzsoft.hostel.Fragment.TommrowFragment;
 import com.amzsoft.hostel.R;
-import com.amzsoft.hostel.databinding.ActivityMainBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -38,8 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CollageNameActivity extends AppCompatActivity {
-    String pinFromFirestore ="";
+    String pinFromFirestore = "";
     private Spinner collegeSpinner;
+    private ImageView adminLoginDots;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,24 +39,37 @@ public class CollageNameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_collage_name);
 
         collegeSpinner = findViewById(R.id.collegeSpinner);
-        Button nextButton = findViewById(R.id.nextButton);
+        adminLoginDots = findViewById(R.id.adminlogindots);
+
+        adminLoginDots.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showAdminLoginPopup(v);
+            }
+        });
 
         // Fetch college names from Firestore and populate the spinner
         fetchCollegeNames();
+    }
 
-        collegeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                // Handle the selected item (if needed)
-                String selectedCollege = parentView.getItemAtPosition(position).toString();
-                // You can use 'selectedCollege' as needed
-            }
+    private void showAdminLoginPopup(View view) {
+        PopupMenu popupMenu = new PopupMenu(this, view);
+        popupMenu.getMenuInflater().inflate(R.menu.admin_nav_text, popupMenu.getMenu());
 
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // Do nothing here
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.admin_login_option) {
+                    // Handle admin login option
+                    Intent intent = new Intent(CollageNameActivity.this, AdminLoginActivity.class);
+                    startActivity(intent);
+                    return true;
+                }
+                return false;
             }
         });
+
+        popupMenu.show();
     }
 
     private void fetchCollegeNames() {
@@ -102,6 +107,7 @@ public class CollageNameActivity extends AppCompatActivity {
                     }
                 });
     }
+
 
 
     private void fetchPinFromFirestore(String selectedCollege, PinFetchCallback callback) {
@@ -180,6 +186,7 @@ public class CollageNameActivity extends AppCompatActivity {
             }
         });
     }
+
     static final String PREFS_NAME = "MyPrefsFile";
     static final String DATA_PASSED_FLAG = "dataPassedFlag";
     static final String SELECTED_COLLEGE_KEY = "selectedCollege";
@@ -219,94 +226,9 @@ public class CollageNameActivity extends AppCompatActivity {
         startActivity(intent);
         //
     }
+
     private interface PinFetchCallback {
         void onPinFetched(String pin);
-    }
-
-    public static class MainActivity extends AppCompatActivity {
-
-        private ActivityMainBinding binding;
-
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            binding = ActivityMainBinding.inflate(getLayoutInflater());
-            setContentView(binding.getRoot());
-
-            String selectedCollege = getIntent().getStringExtra("selectedCollege");
-
-            // Your other setup code
-
-            ImageView customerSupportIcon = findViewById(R.id.customerSupportIcon);
-            customerSupportIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, "click on feedback", Toast.LENGTH_SHORT).show();
-
-                    Intent intent = new Intent(MainActivity.this, FeedbackActivity.class);
-                    intent.putExtra("selectedCollege", selectedCollege);
-                    startActivity(intent);
-                    // Handle the click on the customer support icon
-                    // For example, open a customer support activity or dialog
-                }
-            });
-
-
-
-            if (selectedCollege != null) {
-                Toast.makeText(this, "Selected College: " + selectedCollege, Toast.LENGTH_SHORT).show();
-
-            }
-
-            BottomNavigationView bottomNavigationView = binding.bottomNavigationView;
-
-            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    int itemId = item.getItemId();  // Get the selected item's ID
-
-                    // Check which item was selected and handle accordingly
-                    if (itemId == R.id.home) {
-                        replaceFragment(HomeFragment.newInstance(selectedCollege), "HomeFragment");
-
-                        return true;
-                    } else if (itemId == R.id.tomorrow) {
-                        replaceFragment(TommrowFragment.newInstance(selectedCollege), "TommrowFragment");
-                        return true;
-                    } else if (itemId == R.id.time) {
-                        replaceFragment(TimeFragment.newInstance(selectedCollege), "TimeFragment");
-                        return true;
-                    }
-
-                    // Return false for any other case
-                    return false;
-                }
-            });
-
-            bottomNavigationView.setSelectedItemId(R.id.home);
-        }
-
-        private void replaceFragment(Fragment fragment, String tag) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.frame_layout, fragment, tag);
-            fragmentTransaction.commit();
-        }
-        public void onCustomerSupportIconClick(View view) {
-            // Handle the click on the customer support icon
-            // For example, open a customer support activity or dialog
-            Toast.makeText(this, "Customer support icon clicked!", Toast.LENGTH_SHORT).show();
-        }
-    }
-    public void onAdminloginIconClick(View view) {
-        // Handle the click on admin login icon
-        showAdminLogin();
-    }
-
-    private void showAdminLogin() {
-        // Redirect to AdminLoginActivity
-        Intent intent = new Intent(this, AdminLoginActivity.class);
-        startActivity(intent);
     }
 
 }

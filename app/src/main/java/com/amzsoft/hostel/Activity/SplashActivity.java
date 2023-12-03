@@ -29,7 +29,7 @@ public class SplashActivity extends AppCompatActivity {
             // Check if selectedCollege is not null
             if (selectedCollege != null) {
                 // Display a toast message with the selected college value
-                Intent intent = new Intent(SplashActivity.this, CollageNameActivity.MainActivity.class);
+                Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 intent.putExtra("selectedCollege", selectedCollege);
 
                 Handler handler = new Handler();
