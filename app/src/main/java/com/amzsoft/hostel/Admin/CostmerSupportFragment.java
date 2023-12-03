@@ -1,65 +1,100 @@
 package com.amzsoft.hostel.Admin;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.amzsoft.hostel.R;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CostmerSupportFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.HashMap;
+import java.util.Map;
+
 public class CostmerSupportFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public CostmerSupportFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CostmerSupportFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CostmerSupportFragment newInstance(String param1, String param2) {
-        CostmerSupportFragment fragment = new CostmerSupportFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private EditText headingEditText;
+    private EditText descriptionEditText;
+    private String selectedCollege = "Ambalika Institute of Management and Technology";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_costmer_support, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_costmer_support, container, false);
+
+        // Initialize your EditText views
+        headingEditText = rootView.findViewById(R.id.headingEditText);
+        descriptionEditText = rootView.findViewById(R.id.descriptionEditText);
+
+        // Set a click listener for the submit button
+        Button submitBtn = rootView.findViewById(R.id.submitBtn);
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call the submitFeedback method when the button is clicked
+                submitFeedback();
+            }
+        });
+
+        return rootView;
     }
+
+    private void submitFeedback() {
+        // Get data from form
+        String feedbackType = "Costumer Support"; // Assuming the feedback type is fixed here
+        String heading = headingEditText.getText().toString().trim();
+        String description = descriptionEditText.getText().toString().trim();
+
+        // Validate data
+        if (TextUtils.isEmpty(heading)) {
+            headingEditText.setError("Required");
+            return;
+        }
+
+        if (TextUtils.isEmpty(description)) {
+            descriptionEditText.setError("Required");
+            return;
+        }
+
+        // You need to get the selectedCollege from somewhere; it's not clear from your provided code
+
+        // If all data is valid, proceed to store in Firebase
+        storeFeedback(feedbackType, heading, description, selectedCollege);
+    }
+
+
+    private void storeFeedback(String feedbackType, String heading, String description, String selectedCollege) {
+        // Initialize Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Create a map to represent the feedback data
+        Map<String, Object> feedbackData = new HashMap<>();
+        feedbackData.put("feedbackType", feedbackType);
+        feedbackData.put("heading", heading);
+        feedbackData.put("description", description);
+
+        // Add the feedback data to Firestore
+        db.collection("collage_name")
+                .document(selectedCollege)
+                .collection("feedback")
+                .add(feedbackData)
+                .addOnSuccessListener(documentReference -> {
+                    // Feedback data added successfully
+                    Toast.makeText(getContext(), "Feedback submitted successfully", Toast.LENGTH_SHORT).show();
+                    // Finish the activity or navigate to another screen if needed
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failures
+                    Toast.makeText(getContext(), "Error submitting feedback: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+    }
+
+
 }

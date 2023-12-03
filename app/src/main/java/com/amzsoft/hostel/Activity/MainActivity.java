@@ -30,6 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    String selectedCollege;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         // Get the selected college from the intent
-        String selectedCollege = getIntent().getStringExtra("selectedCollege");
+        selectedCollege = getIntent().getStringExtra("selectedCollege");
 
         // Your other setup code
 
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 if (itemId == R.id.menu_home_feedback) {
                     // Handle feedback option
                     Intent feedbackIntent = new Intent(MainActivity.this, FeedbackActivity.class);
+                    feedbackIntent.putExtra("selectedCollage",selectedCollege);
                     startActivity(feedbackIntent);
                     return true;
                 } else if (itemId == R.id.menu_home_logout) {

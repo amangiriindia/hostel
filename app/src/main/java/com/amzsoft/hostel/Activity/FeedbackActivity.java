@@ -15,12 +15,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.amzsoft.hostel.R;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class FeedbackActivity extends AppCompatActivity {
 
     Spinner feedbackTypeSpinner;
     EditText headingEditText,descriptionEditText;
-
+     String selectedCollege;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +33,8 @@ public class FeedbackActivity extends AppCompatActivity {
          headingEditText = findViewById(R.id.headingEditText);
          descriptionEditText = findViewById(R.id.descriptionEditText);
 
-        submitFeedback();
-        String selectedCollege = getIntent().getStringExtra("selectedCollege");
+
+        selectedCollege = getIntent().getStringExtra("selectedCollage");
 
         // Enable the Up button
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
@@ -48,13 +52,10 @@ public class FeedbackActivity extends AppCompatActivity {
 
     }
 
-    private void submitFeedback() {
+    private void submitFeedback(String feedbackType, String heading, String description, String selectedCollege) {
         // Get data from form
 
 
-        String feedbackType = feedbackTypeSpinner.getSelectedItem().toString();
-        String heading = headingEditText.getText().toString().trim();
-        String description = descriptionEditText.getText().toString().trim();
 
         // Validate data
         if (getString(R.string.select_feedback_type).equals(feedbackType)) {
@@ -74,19 +75,33 @@ public class FeedbackActivity extends AppCompatActivity {
         }
 
         // If all data is valid, proceed to store in Firebase
-        storeFeedback(feedbackType, heading, description);
+        storeFeedback(feedbackType, heading, description, selectedCollege);
     }
 
-    private void storeFeedback(String feedbackType, String heading, String description) {
-        // Here, you can use Firebase to store the feedback data
-        // For example, you can use Firebase Realtime Database or Firestore
+    private void storeFeedback(String feedbackType, String heading, String description, String selectedCollege) {
+        // Initialize Firestore
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        // In this example, I'll use a simple Toast message to simulate storing data
-        String feedbackMessage = "Feedback Type: " + feedbackType +
-                "\nHeading: " + heading +
-                "\nDescription: " + description;
+        // Create a map to represent the feedback data
+        Map<String, Object> feedbackData = new HashMap<>();
+        feedbackData.put("feedbackType", feedbackType);
+        feedbackData.put("heading", heading);
+        feedbackData.put("description", description);
 
-        Toast.makeText(this, feedbackMessage, Toast.LENGTH_SHORT).show();
+        // Add the feedback data to Firestore
+        db.collection("collage_name")
+                .document(selectedCollege)
+                .collection("feedback")
+                .add(feedbackData)
+                .addOnSuccessListener(documentReference -> {
+                    // Feedback data added successfully
+                    Toast.makeText(FeedbackActivity.this, "Feedback submitted successfully", Toast.LENGTH_SHORT).show();
+                    finish(); // Finish the activity or navigate to another screen if needed
+                })
+                .addOnFailureListener(e -> {
+                    // Handle failures
+                    Toast.makeText(FeedbackActivity.this, "Error submitting feedback: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     @Override
@@ -99,6 +114,16 @@ public class FeedbackActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void onSubmitButtonClick(View view) {
-        submitFeedback();
+        // Get data from form
+        String feedbackType = feedbackTypeSpinner.getSelectedItem().toString();
+        String heading = headingEditText.getText().toString().trim();
+        String description = descriptionEditText.getText().toString().trim();
+
+        // Validate data and submit feedback
+        submitFeedback(feedbackType, heading, description, selectedCollege);
     }
+
+
+
+
 }
