@@ -11,6 +11,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.amzsoft.hostel.Admin.AdminMainActivity;
 import com.amzsoft.hostel.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -22,49 +23,41 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        if (isDataPassed()) {
+
+        String adminCollageName =getadminSelectedCollege();
+        Boolean adminLoginFlag = isAdminLoggedIn();
+
+        if(adminLoginFlag == true){
+            Intent intent =new Intent(SplashActivity.this, AdminMainActivity.class);
+            intent.putExtra("selectedCollege",adminCollageName);
+            startDelayedActivity(intent,2000);
+        }
+        else if (isDataPassed()) {
             // Retrieve selectedCollege from SharedPreferences
             String selectedCollege = getSelectedCollege();
-
-            // Check if selectedCollege is not null
             if (selectedCollege != null) {
-                // Display a toast message with the selected college value
                 Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                 intent.putExtra("selectedCollege", selectedCollege);
-
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // Start the HomeActivity after a 5-second delay
-                        startActivity(intent);
-
-                        // Close the splash activity
-                        finish();
-                    }
-                }, 2000); // 5000 milliseconds = 5 seconds
-            }else{
+                startDelayedActivity(intent, 2000);
 
             }
+
         }else {
             Intent intent = new Intent(SplashActivity.this, CollageNameActivity.class);
-
-            // Create a Handler to post a delayed action
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    // Start the HomeActivity after a 5-second delay
-                    startActivity(intent);
-
-                    // Close the splash activity
-                    finish();
-                }
-            }, 2000); // 5000 milliseconds = 5 seconds
+             startDelayedActivity(intent,2000);
         }
 
 
 
+    }
+    private String getadminSelectedCollege() {
+        SharedPreferences adminPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
+    }
+
+    private boolean isAdminLoggedIn() {
+        SharedPreferences adminPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        return adminPreferences.getBoolean("adminLoginStatus", false);
     }
 
     private boolean isDataPassed() {
@@ -78,4 +71,15 @@ public class SplashActivity extends AppCompatActivity {
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         return settings.getString(SELECTED_COLLEGE_KEY, null);
     }
+    private void startDelayedActivity(Intent intent, long delayMillis) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                startActivity(intent);
+                finish(); // Close the splash activity
+            }
+        }, delayMillis);
+    }
+
 }

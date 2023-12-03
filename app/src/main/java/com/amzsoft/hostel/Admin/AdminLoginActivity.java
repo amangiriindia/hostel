@@ -2,6 +2,7 @@ package com.amzsoft.hostel.Admin;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -113,6 +114,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                                         Intent intent =new Intent(AdminLoginActivity.this,AdminMainActivity.class);
                                         intent.putExtra("selectedCollage",selectedCollege);
                                         startActivity(intent);
+                                        storeUserData(selectedCollege,true);
                                         finish();
 
                                         // Add code to navigate to AdminHomeActivity if needed
@@ -151,5 +153,15 @@ public class AdminLoginActivity extends AppCompatActivity {
             ).show();
         }
     }
+
+    private void storeUserData(String selectedCollege, boolean adminLoginStatus) {
+        // Store selected college and admin login status in SharedPreferences
+        SharedPreferences adminpreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        SharedPreferences.Editor editor = adminpreferences.edit();
+        editor.putString("selectedCollege", selectedCollege);
+        editor.putBoolean("adminLoginStatus", adminLoginStatus);
+        editor.apply();
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package com.amzsoft.hostel.Admin;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -96,6 +97,7 @@ public class AdminMainActivity extends AppCompatActivity {
                 }else if(id == R.id.admin_home){
                     loadFragment(new AdminHomeFragment());
                 } else if (id == R.id.admin_logout) {
+                    logoutAdmin();
                     Intent intent =new Intent(AdminMainActivity.this, CollageNameActivity.class);
                     startActivity(intent);
                 }
@@ -109,6 +111,19 @@ public class AdminMainActivity extends AppCompatActivity {
 
 
 
+    private void logoutAdmin() {
+        SharedPreferences adminPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        SharedPreferences.Editor editor = adminPreferences.edit();
+
+        // Set selectedCollege to an empty string
+        editor.putString("selectedCollege", "");
+
+        // Set adminLoginStatus to false
+        editor.putBoolean("adminLoginStatus", false);
+
+        // Apply the changes
+        editor.apply();
+    }
 
     @Override
     public void onBackPressed() {
