@@ -11,21 +11,34 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.amzsoft.hostel.Adapter.AdminSliderAdapter;
 import com.amzsoft.hostel.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AdminSliderFragment extends Fragment {
     private String selectedCollege = "Ambalika Institute of Management and Technology";
     private ImageView selectedImageView;
     private Uri selectedImageUri;
+    private RecyclerView recyclerView;
+    private AdminSliderAdapter adapter;
+    private List<String> imageUrlList = new ArrayList<>(); //
 
     private final ActivityResultLauncher<String> getImageContent =
             registerForActivityResult(new ActivityResultContracts.GetContent(),
@@ -45,6 +58,7 @@ public class AdminSliderFragment extends Fragment {
         Button btnSelectImage = rootView.findViewById(R.id.btnSelectImage);
         selectedImageView = rootView.findViewById(R.id.selectedImageView);
         Button btnSubmit = rootView.findViewById(R.id.btnSubmit);
+        recyclerView = rootView.findViewById(R.id.sliderImagerecyclerView);
 
         btnSelectImage.setOnClickListener(v -> getImageContent.launch("image/*"));
 
@@ -52,13 +66,51 @@ public class AdminSliderFragment extends Fragment {
             if (selectedImageUri != null) {
                 // Upload image to Firebase Storage
                 uploadImageToStorage(selectedImageUri);
-
-                // Store image URL in Firestore
-                storeImageUrlInFirestore(String.valueOf(selectedImageUri));
             }
         });
 
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new AdminSliderAdapter(imageUrlList);
+        recyclerView.setAdapter(adapter);
+
+        // Fetch data from Firestore
+        fetchDataFromFirestore();
+
         return rootView;
+    }
+
+
+
+    private void fetchDataFromFirestore() {
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        firestore.collection("collage_name")
+                .document(selectedCollege)
+                .collection("slider")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            // Clear the existing list before adding new URLs
+                            imageUrlList.clear();
+
+                            // Loop through the query snapshot and add image URLs to the list
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String imageUrl = document.getString("img_url");
+                                if (imageUrl != null) {
+                                    imageUrlList.add(imageUrl);
+                                }
+                            }
+
+                            // Notify the adapter that the data set has changed
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            // Handle task failure
+                        }
+                    }
+                });
     }
 
     private void uploadImageToStorage(Uri imageUri) {

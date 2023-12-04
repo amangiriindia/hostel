@@ -26,6 +26,17 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- College Name -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="COllage Not Listed Form"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
     <EditText
         android:id="@+id/editTextCollegeName"
         android:layout_width="match_parent"
