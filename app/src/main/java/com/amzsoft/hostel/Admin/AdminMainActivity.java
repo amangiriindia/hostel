@@ -30,6 +30,8 @@ public class AdminMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
 
+
+
         drawerLayout = findViewById(R.id.adminDrawerLayout);
         navigationView = findViewById(R.id.admimNavigationView);
         toolbar = findViewById(R.id.admin_toolbar);

@@ -16,16 +16,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.amzsoft.hostel.Adapter.DailyItemsAdapter;
 import com.amzsoft.hostel.Adapter.ImageSliderAdapter;
-import com.amzsoft.hostel.Adapter.ServiceItemAdapter;
 import com.amzsoft.hostel.Model.DailyItemModel;
-import com.amzsoft.hostel.Model.ServiceItemsModel;
 import com.amzsoft.hostel.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
