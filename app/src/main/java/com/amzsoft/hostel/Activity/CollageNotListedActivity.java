@@ -1,6 +1,7 @@
 package com.amzsoft.hostel.Activity;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amzsoft.hostel.R;
@@ -79,6 +81,8 @@ public class CollageNotListedActivity extends AppCompatActivity {
 
     }
 
+
+
     private void submitForm() {
         // Get data from form
         String collegeName = editTextCollegeName.getText().toString().trim();
@@ -121,28 +125,46 @@ public class CollageNotListedActivity extends AppCompatActivity {
             return;
         }
 
-        // Create a map to represent the data
-        Map<String, Object> userData = new HashMap<>();
-        userData.put("collegeName", collegeName);
-        userData.put("collegeLocation", location);
-        userData.put("name", name);
-        userData.put("email", email);
-        userData.put("phoneNumber", phoneNumber);
-        userData.put("course", course);
-        userData.put("year", yearText);
 
-        db.collection("collage_not_listed")
-                .add(userData)
-                .addOnSuccessListener(documentReference -> {
-                    // Data added successfully
-                    Toast.makeText(CollageNotListedActivity.this, "Data submitted successfully", Toast.LENGTH_SHORT).show();
-                    Toast.makeText(this, "Your Data submitted successfully our Team will be contact with in 2 working day!", Toast.LENGTH_LONG).show();
-                    // Add any other actions you need after successful submission
-                })
-                .addOnFailureListener(e -> {
-                    // Handle failures
-                    Toast.makeText(CollageNotListedActivity.this, "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                });
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you have filled in the correct data?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User confirmed, submit the form
+                // Create a map to represent the data
+                Map<String, Object> userData = new HashMap<>();
+                userData.put("collegeName", collegeName);
+                userData.put("collegeLocation", location);
+                userData.put("name", name);
+                userData.put("email", email);
+                userData.put("phoneNumber", phoneNumber);
+                userData.put("course", course);
+                userData.put("year", yearText);
+
+                db.collection("collage_not_listed")
+                        .add(userData)
+                        .addOnSuccessListener(documentReference -> {
+                            // Data added successfully
+                            Toast.makeText(CollageNotListedActivity.this, "Your Data submitted successfully our Team will be contact with in 2 working day!", Toast.LENGTH_LONG).show();
+                            // Add any other actions you need after successful submission
+                        })
+                        .addOnFailureListener(e -> {
+                            // Handle failures
+                            Toast.makeText(CollageNotListedActivity.this, "Error submitting data: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        });
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User canceled, do nothing
+            }
+        });
+        builder.show();
+
+
 
 
         // Repeat the validation for other fields...

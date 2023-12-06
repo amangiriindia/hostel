@@ -1,5 +1,6 @@
 package com.amzsoft.hostel.Activity;
 
+import android.content.DialogInterface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.amzsoft.hostel.R;
@@ -74,9 +76,29 @@ public class FeedbackActivity extends AppCompatActivity {
             return;
         }
 
-        // If all data is valid, proceed to store in Firebase
-        storeFeedback(feedbackType, heading, description, selectedCollege);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmation");
+        builder.setMessage("Are you sure you have filled in the correct data?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User confirmed, submit the form
+                // If all data is valid, proceed to store in Firebase
+                storeFeedback(feedbackType, heading, description, selectedCollege);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User canceled, do nothing
+            }
+        });
+        builder.show();
+
+
     }
+
 
     private void storeFeedback(String feedbackType, String heading, String description, String selectedCollege) {
         // Initialize Firestore

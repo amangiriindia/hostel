@@ -222,7 +222,7 @@ public class CollageNameActivity extends AppCompatActivity {
 
     public void onContactHereClick(View view) {
         // Handle the click event here
-        Toast.makeText(this, "Contact here clicked!", Toast.LENGTH_SHORT).show();
+
         // Add your desired action, such as opening a contact form or performing any other operation.
         Intent intent = new Intent(CollageNameActivity.this, CollageNotListedActivity.class);
         startActivity(intent);
