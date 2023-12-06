@@ -5,6 +5,7 @@ import static com.amzsoft.hostel.Activity.CollageNameActivity.DATA_PASSED_FLAG;
 import static com.amzsoft.hostel.Activity.CollageNameActivity.PREFS_NAME;
 import static com.amzsoft.hostel.Activity.CollageNameActivity.SELECTED_COLLEGE_KEY;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -110,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(feedbackIntent);
                     return true;
                 } else if (itemId == R.id.menu_home_logout) {
-                    logout();
+                    showLogoutConfirmationDialog();
                     // Implement your logout logic here
                     return true;
                 } else {
@@ -122,6 +124,30 @@ public class MainActivity extends AppCompatActivity {
         // Show the popup menu
         popupMenu.show();
     }
+
+
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Implement your logout logic here
+                logout();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Do nothing, user canceled logout
+            }
+        });
+
+        builder.show();
+    }
+
+
 
     private void logout() {
         // Handle logout option

@@ -208,7 +208,9 @@ public class CollageNameActivity extends AppCompatActivity {
         Intent intent = new Intent(CollageNameActivity.this, MainActivity.class);
         intent.putExtra("selectedCollege", selectedCollege);
         startActivity(intent);
+        finish(); // Corrected the method name
     }
+
 
     private void saveSelectedCollege(String selectedCollege) {
         // Save selectedCollege to SharedPreferences
