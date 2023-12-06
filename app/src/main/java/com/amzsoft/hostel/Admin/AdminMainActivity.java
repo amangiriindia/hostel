@@ -1,5 +1,6 @@
 package com.amzsoft.hostel.Admin;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -99,9 +101,7 @@ public class AdminMainActivity extends AppCompatActivity {
                 }else if(id == R.id.admin_home){
                     loadFragment(new AdminHomeFragment());
                 } else if (id == R.id.admin_logout) {
-                    logoutAdmin();
-                    Intent intent =new Intent(AdminMainActivity.this, CollageNameActivity.class);
-                    startActivity(intent);
+                  showLogoutConfirmationDialog();
                 }
 
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -110,7 +110,31 @@ public class AdminMainActivity extends AppCompatActivity {
         });
     }
 
+    // Add this method to show the confirmation dialog for logout
+    private void showLogoutConfirmationDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Logout");
+        builder.setMessage("Are you sure you want to logout?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User confirmed, proceed with logout
+                logoutAdmin();
 
+                // Navigate to CollageNameActivity after logout
+                Intent intent = new Intent(AdminMainActivity.this, CollageNameActivity.class);
+                startActivity(intent);
+                finish(); // Optionally, finish the current activity after starting a new one
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User canceled, do nothing
+            }
+        });
+        builder.show();
+    }
 
 
     private void logoutAdmin() {

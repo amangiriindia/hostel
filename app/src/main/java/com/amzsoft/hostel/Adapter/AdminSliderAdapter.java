@@ -2,6 +2,7 @@ package com.amzsoft.hostel.Adapter;
 
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amzsoft.hostel.R;
@@ -63,7 +65,7 @@ public class AdminSliderAdapter extends RecyclerView.Adapter<AdminSliderAdapter.
                 // You can add your logic to delete the corresponding item from the list or Firebase
 
                 // Delete the item from the database
-                deleteItemFromDatabase(imageUrl);
+                showDeleteConfirmationDialog(imageUrl);
             }
         });
     }
@@ -120,6 +122,26 @@ public class AdminSliderAdapter extends RecyclerView.Adapter<AdminSliderAdapter.
                 });
     }
 
+    // Add this method to show the confirmation dialog
+    private void showDeleteConfirmationDialog(String imageUrl) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete this slider notification?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User confirmed, proceed with deletion
+                deleteItemFromDatabase(imageUrl);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // User canceled, do nothing
+            }
+        });
+        builder.show();
+    }
 
     private void deleteImageFromStorage(String fileName) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
