@@ -159,6 +159,10 @@ public class AdminMainActivity extends AppCompatActivity {
           super.onBackPressed();
       }
     }
+    private String getAdminSelectedCollege() {
+        SharedPreferences adminPreferences = getSharedPreferences("user_data", MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
+    }
 
     private void loadFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();

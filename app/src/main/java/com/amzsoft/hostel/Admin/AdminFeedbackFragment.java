@@ -1,6 +1,9 @@
 package com.amzsoft.hostel.Admin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +25,7 @@ import java.util.List;
 
 public class AdminFeedbackFragment extends Fragment {
 
-    private String selectedCollege = "Ambalika Institute of Management and Technology";
+    private String selectedCollege;
 
     RecyclerView recyclerView;
     @Override
@@ -33,9 +36,24 @@ public class AdminFeedbackFragment extends Fragment {
         View rootView= inflater.inflate(R.layout.fragment_admin_feedback, container, false);
 
          recyclerView = rootView.findViewById(R.id.admin_feedback_recyclerView);
+        String college = getAdminSelectedCollege(getContext());
+        if (!TextUtils.isEmpty(college)) {
+            // Do something with the selected college name
+            selectedCollege = college;
+        } else {
+            // Handle the case where the selected college name is not found
+            // You might want to show a default college or take some appropriate action
+            Toast.makeText(getActivity(), "Selected college not found", Toast.LENGTH_SHORT).show();
+        }
         fetchDataAndDisplay();
         return rootView;
     }
+
+    private String getAdminSelectedCollege(Context context) {
+        SharedPreferences adminPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
+    }
+
     private void fetchDataAndDisplay() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 

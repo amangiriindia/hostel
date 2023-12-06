@@ -1,7 +1,10 @@
 package com.amzsoft.hostel.Admin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 public class AdminSliderFragment extends Fragment {
-    private String selectedCollege = "Ambalika Institute of Management and Technology";
+    private String selectedCollege ;
     private ImageView selectedImageView;
     private Uri selectedImageUri;
     private RecyclerView recyclerView;
@@ -59,7 +62,15 @@ public class AdminSliderFragment extends Fragment {
         selectedImageView = rootView.findViewById(R.id.selectedImageView);
         Button btnSubmit = rootView.findViewById(R.id.btnSubmit);
         recyclerView = rootView.findViewById(R.id.sliderImagerecyclerView);
-
+        String college = getAdminSelectedCollege(getContext());
+        if (!TextUtils.isEmpty(college)) {
+            // Do something with the selected college name
+            selectedCollege = college;
+        } else {
+            // Handle the case where the selected college name is not found
+            // You might want to show a default college or take some appropriate action
+            Toast.makeText(getActivity(), "Selected college not found", Toast.LENGTH_SHORT).show();
+        }
         btnSelectImage.setOnClickListener(v -> getImageContent.launch("image/*"));
 
         btnSubmit.setOnClickListener(v -> {
@@ -139,6 +150,11 @@ public class AdminSliderFragment extends Fragment {
                     // Handle unsuccessful uploads
                     // You might want to show an error message to the user
                 });
+    }
+
+    private String getAdminSelectedCollege(Context context) {
+        SharedPreferences adminPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
     }
 
     private void storeImageUrlInFirestore(String imageUrl) {

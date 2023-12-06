@@ -1,6 +1,9 @@
 package com.amzsoft.hostel.Admin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,16 +32,25 @@ public class AdminNearByFragment extends Fragment {
     private RecyclerView nearbyServicesRecyclerView;
     private List<ServiceItemsModel> serviceItemList;
     private ServiceItemAdapter serviceItemAdapter;
-    private String selectedCollege = "Ambalika Institute of Management and Technology";
+    private String selectedCollege = "";
     FirebaseFirestore firestore;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView =  inflater.inflate(R.layout.fragment_admin_near_by, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_admin_near_by, container, false);
 
         firestore = FirebaseFirestore.getInstance();
 
+        String college = getAdminSelectedCollege(getContext());
+        if (!TextUtils.isEmpty(college)) {
+            // Do something with the selected college name
+            selectedCollege = college;
+        } else {
+            // Handle the case where the selected college name is not found
+            // You might want to show a default college or take some appropriate action
+            Toast.makeText(getActivity(), "Selected college not found", Toast.LENGTH_SHORT).show();
+        }
 
         nearbyServicesRecyclerView = rootView.findViewById(R.id.admin_nearbyServicesRecyclerView);
         nearbyServicesRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -47,9 +59,16 @@ public class AdminNearByFragment extends Fragment {
         nearbyServicesRecyclerView.setAdapter(serviceItemAdapter);
         fetchNearbyServicesData();
 
-     return  rootView;
-
+        return rootView;
     }
+
+
+    public String getAdminSelectedCollege(Context context) {
+        SharedPreferences adminPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
+    }
+
+
 
     private void fetchNearbyServicesData() {
 

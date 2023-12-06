@@ -1,7 +1,10 @@
 package com.amzsoft.hostel.Admin;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +51,7 @@ public class AdminHomeFragment extends Fragment {
     private final long DELAY_MS = 2000;
     private final long PERIOD_MS = 3000;
 
-    private String selectedCollege = "Ambalika Institute of Management and Technology";
+    private String selectedCollege;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +59,15 @@ public class AdminHomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View rootView =inflater.inflate(R.layout.fragment_admin_home, container, false);
 
-
+        String college = getAdminSelectedCollege(getContext());
+        if (!TextUtils.isEmpty(college)) {
+            // Do something with the selected college name
+            selectedCollege = college;
+        } else {
+            // Handle the case where the selected college name is not found
+            // You might want to show a default college or take some appropriate action
+            Toast.makeText(getActivity(), "Selected college not found", Toast.LENGTH_SHORT).show();
+        }
         firestore = FirebaseFirestore.getInstance();
 
 
@@ -152,7 +163,10 @@ public class AdminHomeFragment extends Fragment {
 
 
 
-
+    private String getAdminSelectedCollege(Context context) {
+        SharedPreferences adminPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
+    }
 
 
 

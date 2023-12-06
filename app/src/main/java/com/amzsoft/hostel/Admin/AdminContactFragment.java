@@ -1,7 +1,10 @@
 package com.amzsoft.hostel.Admin;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +47,15 @@ public class AdminContactFragment extends Fragment {
         // Initialize Firestore
         firestore = FirebaseFirestore.getInstance();
 
-        selectedCollege = "Ambalika Institute of Management and Technology"; // Replace with your actual logic to get selectedCollege
+        String college = getAdminSelectedCollege(getContext());
+        if (!TextUtils.isEmpty(college)) {
+            // Do something with the selected college name
+            selectedCollege = college;
+        } else {
+            // Handle the case where the selected college name is not found
+            // You might want to show a default college or take some appropriate action
+            Toast.makeText(getActivity(), "Selected college not found", Toast.LENGTH_SHORT).show();
+        }
 
         // RecyclerView setup
         recyclerViewcontact = rootView.findViewById(R.id.admin_contactrecyclerView);
@@ -58,6 +69,12 @@ public class AdminContactFragment extends Fragment {
 
         return rootView;
     }
+
+    private String getAdminSelectedCollege(Context context) {
+        SharedPreferences adminPreferences = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        return adminPreferences.getString("selectedCollege", "");
+    }
+
 
     private void fetchDataFromFirestore() {
         CollectionReference contactsRef =
