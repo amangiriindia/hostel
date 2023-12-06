@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,26 +22,42 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.amzsoft.hostel.Activity.CollageNameActivity;
 import com.amzsoft.hostel.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class AdminMainActivity extends AppCompatActivity {
     
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+    String selectedCollege ;
+    TextView collageNameTextView, collagePassowrdTextView;
+    FirebaseFirestore firestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_main);
 
+        firestore =FirebaseFirestore.getInstance();
 
+        selectedCollege =getAdminSelectedCollege();
 
         drawerLayout = findViewById(R.id.adminDrawerLayout);
         navigationView = findViewById(R.id.admimNavigationView);
         toolbar = findViewById(R.id.admin_toolbar);
+        View headerView = navigationView.getHeaderView(0);
+         collageNameTextView = headerView.findViewById(R.id.admin_nav_collage_name);
+         collagePassowrdTextView =headerView.findViewById(R.id.admin_nav_collage_password);
+        collageNameTextView.setText(selectedCollege);
+
 
         setSupportActionBar(toolbar);
+        fetchCollagePin();
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this,
@@ -135,6 +154,44 @@ public class AdminMainActivity extends AppCompatActivity {
         });
         builder.show();
     }
+
+
+    private void fetchCollagePin() {
+        // Reference to the document in Firestore
+        DocumentReference collegeDocumentRef = firestore.collection("collage_name").document(selectedCollege);
+
+        collegeDocumentRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        // Get the value of 'collage_pin' from the document
+                        String collagePin = document.getString("collage_pin");
+
+                        // Do something with the retrieved 'collage_pin' value
+                        if (collagePin != null) {
+                            // Handle the case where 'collage_pin' is not null
+                            // For example, you can use it in your logic or display it
+                            collagePassowrdTextView.setText("Password: "+collagePin);
+
+
+                        } else {
+                            // Handle the case where 'collage_pin' is null
+                            // For example, show a default value or handle accordingly
+                        }
+                    } else {
+                        // Handle the case where the document does not exist
+                        Toast.makeText(AdminMainActivity.this, "Document does not exist", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Handle failures
+                    Toast.makeText(AdminMainActivity.this, "Error getting document: " + task.getException(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
 
     private void logoutAdmin() {
